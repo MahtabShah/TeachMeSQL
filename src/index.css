@@ -69,3 +69,8 @@ body {
 .code-block .hljs {
   color: #bec8dc;
 }
+
+/* // netlify button none  */
+.nl-badge {
+  display: none !important;
+}
