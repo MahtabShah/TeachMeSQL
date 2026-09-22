@@ -71,6 +71,6 @@ body {
 }
 
 /* // netlify button none  */
-.nl-badge {
+#nl-badge {
   display: none !important;
 }

@@ -140,8 +140,8 @@ const sec1chapter2 = {
             course_id  | lecture_id
                 1      |    2
                 4      |    5
-            ------------------- lecturs----------------
-            lecture_id | name
+
+            lecture_id |  name
                 2      |  Mahtab Shah
                 3      |  Shole
                 5      |  Nunnu
@@ -195,9 +195,9 @@ const sec1chapter2 = {
           data: {
             language: "sql",
             code: `
-            course_id  | lecture_id |  name       |            
-                1      |    2       | Mahtab Shah |
-                4      |    5       | Nunnu       |
+            | course_id  | lecture_id  |    name     |            
+            |    1       |    2        | Mahtab Shah |
+            |    4       |    5        |   Nunnu     |
             `,
           },
         },
@@ -221,7 +221,7 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name, AS lecturer_name
+            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
             FROM courses, lectures
             WHERE courses.lecturer_id == lecturers.lecturer_id
             `,
@@ -245,7 +245,7 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name, AS lecturer_name
+            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
             FROM courses, lectures
             WHERE courses.lecturer_id == lecturers.lecturer_id
             `,
@@ -271,7 +271,7 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name, AS lecturer_name
+            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
             FROM courses
             JOIN lecturers ON courses.lecturer_id == lecturers.lecturer_id
             `,
@@ -346,10 +346,9 @@ ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
 
             {
               question: "Both query will give same reuslt ?",
-              type: "code",
+              type: "text",
               data: {
-                language: "sql",
-                code: `Using WHERE with multiple tables in FROM, or useinf JOIN....ON`,
+                text: `Using WHERE with multiple tables in FROM, or useinf JOIN....ON`,
               },
               options: ["True", "False"],
               answer: 0,
@@ -380,9 +379,9 @@ ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
           id: "s1c2b10sb1",
           type: "code",
           data: {
-            language: "slq",
+            language: "sql",
             code: `SELECT table1.col1, table2.col2 .......
-            FROM table1, (SELECT * FROM tableA) as table2
+            FROM table1, (SELECT * FROM tableA) AS table2
             WHERE table1.id = table2.id
             `,
           },
