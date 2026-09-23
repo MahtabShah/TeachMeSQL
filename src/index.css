@@ -32,12 +32,12 @@ body {
 }
 
 .code-block {
-  background: #212228;
+  background: #1e1f24;
 }
 
 .code-block .hljs {
   background: transparent;
-  color: #abb2bf;
+  color: #bcc7dc;
 }
 
 /* SQL keywords */

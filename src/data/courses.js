@@ -133,19 +133,26 @@ const sec1chapter2 = {
       sub_blocks: [
         {
           id: "s1c2b2sb1",
-          type: "code",
+          type: "table",
           data: {
-            language: "sql",
-            code: `
-            course_id  | lecture_id
-                1      |    2
-                4      |    5
+            column: ["course_id", "lecture_id"],
+            rows: [
+              ["1", "2"],
+              ["4", "5"],
+            ],
+          },
+        },
 
-            lecture_id |  name
-                2      |  Mahtab Shah
-                3      |  Shole
-                5      |  Nunnu
-            `,
+        {
+          id: "s1c2b2sb1",
+          type: "table",
+          data: {
+            column: ["lecture_id", "Name"],
+            rows: [
+              ["2", "Mahtab Shah"],
+              ["3", "Shole"],
+              ["5", "Nunnu"],
+            ],
           },
         },
       ],
@@ -190,15 +197,14 @@ const sec1chapter2 = {
           },
         },
         {
-          id: "s1c2b4sb2",
-          type: "code",
+          id: "s1c2b4sb3",
+          type: "table",
           data: {
-            language: "sql",
-            code: `
-            | course_id  | lecture_id  |    name     |            
-            |    1       |    2        | Mahtab Shah |
-            |    4       |    5        |   Nunnu     |
-            `,
+            column: ["course_id", "lecture_id", "Name"],
+            rows: [
+              ["1", "2", "Mahtab Shah"],
+              ["4", "5", "Shole"],
+            ],
           },
         },
       ],
@@ -221,10 +227,10 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
-            FROM courses, lectures
-            WHERE courses.lecturer_id == lecturers.lecturer_id
-            `,
+            code: `SELECT courses.course_id,
+       lecturers.name AS lecturer_name
+FROM courses, lectures
+WHERE courses.lecturer_id == lecturers.lecturer_id`,
           },
         },
       ],
@@ -245,9 +251,10 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
-            FROM courses, lectures
-            WHERE courses.lecturer_id == lecturers.lecturer_id
+            code: `SELECT courses.course_id,
+       lecturers.name AS lecturer_name
+FROM courses, lectures
+WHERE courses.lecturer_id == lecturers.lecturer_id
             `,
           },
         },
@@ -271,10 +278,10 @@ const sec1chapter2 = {
           type: "code",
           data: {
             language: "sql",
-            code: `SELECT courses.course_id, lecturers.name AS lecturer_name
-            FROM courses
-            JOIN lecturers ON courses.lecturer_id == lecturers.lecturer_id
-            `,
+            code: `SELECT courses.course_id,
+       lecturers.name AS lecturer_name
+FROM courses
+     JOIN lecturers ON courses.lecturer_id == lecturers.lecturer_id`,
           },
         },
 
@@ -304,7 +311,7 @@ const sec1chapter2 = {
               data: {
                 code: `SELECT courses.course_id, lecturers.name
 FROM courses
-___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
+     ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
                 language: "sql",
               },
               options: [
@@ -381,9 +388,9 @@ ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
           data: {
             language: "sql",
             code: `SELECT table1.col1, table2.col2 .......
-            FROM table1, (SELECT * FROM tableA) AS table2
-            WHERE table1.id = table2.id
-            `,
+FROM table1,
+     (SELECT * FROM tableA) AS table2
+WHERE table1.id = table2.id`,
           },
         },
       ],
@@ -417,9 +424,9 @@ ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
               data: {
                 language: "sql",
                 code: `SELECT t1.name, t2.total
-                FROM table1 as t1,
-                (SELECT * FROM table2) ____ t2
-                WHERE t1.id = t2.id`,
+FROM table1 as t1,
+     (SELECT * FROM table2) ____ t2
+WHERE t1.id = t2.id`,
               },
               options: ["NAMED", "CALLED", "DEF", "AS"],
               answer: 3,
@@ -467,6 +474,130 @@ ___ lecturers ___ courses.lecturer_id = lecturers.lecturer_id`,
               answer: 2,
             },
           ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b12",
+      sub_blocks: [
+        {
+          id: "s1c2b12sb2",
+          type: "heading",
+          data: {
+            text: `Self Join`,
+          },
+        },
+        {
+          id: "s1c2b12sb2",
+          type: "text",
+          data: {
+            text: `Self-joins are different types of joins. As of now, we talked about multiple table joins, but self-joins are joined to the same table. A classic example would be a table of employees.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b12",
+      sub_blocks: [
+        {
+          id: "s1c2b12sb1",
+          type: "table",
+          data: {
+            column: ["employee_id", "employee_name", "manager_id"],
+            rows: [
+              [1, "Mahtab", 3],
+              [2, "Shah", 3],
+              [3, "Jacob", 4],
+              [4, "Alice", ""],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b13",
+      sub_blocks: [
+        {
+          id: "s1c2b13sb1",
+          type: "text",
+          data: {
+            text: `Every employee has a manager except the highest manager, and every manager is also an employee.
+
+The problem: For each employee we want to know the manager's name.  `,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b14",
+      sub_blocks: [
+        {
+          id: "s1c2b14sb1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT e.employee_id, e.employee_name, m.employee_name AS manager_name
+FROM employees e
+     JOIN employees m ON e.manager_id = m.employee_id
+WHERE e.manager_id IS NOT NULL`,
+          },
+        },
+
+        {
+          id: "s1c2b14sb2",
+          type: "text",
+          data: {
+            text: `We join between the same table except one time we call it 'e' and the second time it is 'm'. The join is between the fields employee_id and manager_id.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b15",
+      sub_blocks: [
+        {
+          id: "s1c2b14sb1",
+          type: "text",
+          data: {
+            text: `The result is:`,
+          },
+        },
+        {
+          id: "s1c2b15sb2",
+          type: "table",
+          data: {
+            column: ["employee_id", "employee_name", "manager_name"],
+            rows: [
+              [1, "Mahtab", "Jacob"],
+              [2, "Shah", "Jacob"],
+              [3, "Jacob", "Alice"],
+            ],
+          },
+        },
+      ],
+    },
+    {
+      id: "s1c2b16",
+      sub_blocks: [
+        {
+          id: "s1c2b16sb1",
+          type: "text",
+          data: {
+            text: `Notice, employee 'Mahtab' and 'Shah' has same manager_id which is Jacob while Jacob manager_id is 4 which is Alice's id.`,
+          },
+        },
+
+        {
+          id: "s1c2b16sb2",
+          type: "text",
+          data: {
+            text: `In a self-join, you must use different table aliases to distinguish between the two references to the same table.`,
+          },
         },
       ],
     },

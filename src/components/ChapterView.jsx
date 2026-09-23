@@ -40,7 +40,7 @@ function ChapterView({
 
   // Auto-scroll to newest block when more than 1 visible
   useEffect(() => {
-    if (visibleCount <= 1 || visibleCount == contents?.length) return;
+    if (visibleCount <= 1) return;
     const id = requestAnimationFrame(() => {
       latestContentRef.current?.scrollIntoView({
         behavior: "smooth",

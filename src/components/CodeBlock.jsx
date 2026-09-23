@@ -6,7 +6,7 @@ function CodeBlock({ code, language = "plaintext" }) {
     const original = typeof code === "string" ? code : "";
     const formatted =
       language?.toLowerCase() === "sql" ? formatSQL(original) : original;
-    return highlightCode(formatted, language);
+    return highlightCode(original, language);
   }, [code, language]);
 
   return (

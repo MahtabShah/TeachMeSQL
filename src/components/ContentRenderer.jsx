@@ -2,6 +2,7 @@ import Practice from "./Practice";
 import Quiz from "./Quiz";
 import CodeBlock from "./CodeBlock";
 import { mySet } from "../sqlKeywords"; // move mySet out — see below
+import Table from "./Table";
 
 function renderTextWithKeywords(text) {
   // Preserve paragraph breaks and highlight only real keywords.
@@ -60,6 +61,8 @@ function ContentRenderer({
         {renderTextWithKeywords(block?.data?.text)}
       </p>
     ),
+
+    table: (block) => <Table table={block.data} />,
 
     code: (block) => (
       <CodeBlock code={block?.data?.code} language={block?.data?.language} />
