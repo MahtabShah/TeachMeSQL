@@ -57,7 +57,7 @@ function ContentRenderer({
     ),
 
     text: (block) => (
-      <p className="text-sm leading-7 text-slate-700 sm:text-base sm:leading-7">
+      <p className="leading-7 text-base text-slate-700 sm:text-base sm:leading-7">
         {renderTextWithKeywords(block?.data?.text)}
       </p>
     ),

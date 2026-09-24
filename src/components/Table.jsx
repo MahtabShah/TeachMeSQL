@@ -1,13 +1,13 @@
 const Table = ({ table }) => {
   return (
-    <div className="w-full overflow-hidden rounded-lg border border-gray-300 border-b-0">
+    <div className="w-full mx-w-[480px] overflow-auto rounded-lg border border-gray-300 border-b-0">
       <table className="w-full border-collapse">
-        <thead>
+        <thead className="w-full">
           <tr>
             {table.column.map((column) => (
               <th
                 key={column}
-                className="border-b border-r border-gray-300 px-4 py-3 text-left text-sm font-semibold bg-gray-200 text-gray-800 last:border-r-0">
+                className="border-b border-r border-gray-300 px-4 py-3 text-left text-sm font-semibold bg-slate-200 text-gray-800 last:border-r-0">
                 {column}
               </th>
             ))}

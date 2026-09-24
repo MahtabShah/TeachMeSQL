@@ -24,9 +24,30 @@ const sec1chapter1 = {
           id: "isbc-1",
           type: "text",
           data: {
-            text: `Databases are like large buckets that store data in an organized manner. Here are two examples of when we would like to create a database: A database for a university to save data about students, courses, and lecturers.
-A database for a car agency to track sales, car storage, and employees.
-And many more. Inside a database there are tables, and each table has a name, column names, and rows.`,
+            text: `Databases are like large buckets that store data in an organized manner. Here are two examples of when we would like to create a database:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "abc-x-q",
+      sub_blocks: [
+        {
+          id: "asb-ss",
+          type: "text",
+          data: {
+            text: `A database for a university to save data about students, courses, and lecturers. 
+            A database for a car agency to track sales, car storage, and employees, and many more. `,
+          },
+        },
+
+        {
+          id: "asb-ss2",
+          type: "text",
+          data: {
+            text: `          
+            Inside a database there are tables, and each table has a name, column names, and rows.`,
           },
         },
       ],
@@ -45,13 +66,14 @@ And many more. Inside a database there are tables, and each table has a name, co
 
         {
           id: "isb-2",
-          type: "code",
+          type: "table",
           data: {
-            language: "sql",
-            code: `firstname	lastname	age	exp_years	gender ---
-1	Ghully	Thuas	29	2.3	Female ---
-2	Bostal	Shkolky	32	0.2	Male ---
-3	Qaostu	Malop	21	4	Female`,
+            column: ["firstname", "lastname", "age", "exp_years", "gender"],
+            rows: [
+              ["Ghully", "Thuas", 29, 1.5, "Female"],
+              ["Bostal", "Shkolky", 32, 2, "Male"],
+              ["Pille", "Shury", 29, 5, "Female"],
+            ],
           },
         },
 
@@ -59,7 +81,7 @@ And many more. Inside a database there are tables, and each table has a name, co
           id: "isb-3",
           type: "text",
           data: {
-            text: `The workers table has 5 data columns (firstname, lastname, age, exp_years, gender) and 3 rows. The first column (showing 1, 2, 3) is just a row number, not a data column.
+            text: `The workers table has 5 data columns (firstname, lastname, age, exp_years, gender) and 3 rows.
 
 We don't need any special tool to know that we have 3 workers, and it's easy to calculate the average age of all of them (29 + 32 + 21) / 3.
 
@@ -103,12 +125,20 @@ To do this we'll write:`,
             code: `SELECT column1, column2, column3 FROM table_name`,
           },
         },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `It will give all rows of specified columns in SELECT clause.`,
+          },
+        },
       ],
     },
   ],
 };
 
-const sec1chapter2 = {
+const sec1chapter10 = {
   id: "sql-sec1-chapter-2",
   title: "Multiple Tables",
   order: 2,
@@ -176,7 +206,7 @@ const sec1chapter2 = {
           data: {
             text: `We can achieve this by two ways, The first Approach is:
             For each option in first table we try to match with other table's rows. We check a condition, if that condition met, we combined both rows into single one.
-            For example: for courses, we will check for lecutre_id = 2 to all lecture_id in lectures table. In lecures table only first row will match. as first row has lecture_id = 2.
+            For example: for courses, we will check for lecutre_id 2 to all lecture_ids in lectures table. In lectures table only first row will match. As first row has lecture_id 2.
 
             `,
           },
@@ -601,10 +631,312 @@ WHERE e.manager_id IS NOT NULL`,
         },
       ],
     },
+
+    {
+      id: "s1c2b17",
+      sub_blocks: [
+        {
+          id: "s1c2b17sb1",
+          type: "heading",
+          data: {
+            text: `Union`,
+          },
+        },
+        {
+          id: "s1c2b17sb2",
+          type: "text",
+          data: {
+            text: `Unions are different from joins. Joins are using conditions to combine tables but unions just add two tables on top of the other. To use UNION we will write:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b18",
+      sub_blocks: [
+        {
+          id: "s1c2b18sb1",
+          type: "code",
+          data: {
+            language: `sql`,
+            code: `SELECT col1, col2, col3 ..... FROM table1
+UNION 
+SELECT col1, col2, col3 ..... FROM table2`,
+          },
+        },
+        {
+          id: "s1c2b17sb2",
+          type: "text",
+          data: {
+            text: `Both SELECTS must obey the following rules:
+`,
+          },
+        },
+        {
+          id: "s1c2b17sb3",
+          type: "text",
+          data: {
+            text: `1. The number of fields should be equal
+            2. Order is important
+            3. The columns in the same place must match the data types`,
+          },
+        },
+        {
+          id: "s1c2b17sb4",
+          type: "text",
+          data: {
+            text: `For example, let's assume we have the following tables:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b19",
+      sub_blocks: [
+        {
+          id: "s1c2b19sb2",
+          type: "text",
+          data: {
+            text: "Indian People",
+          },
+        },
+        {
+          id: "s1c2b19sb1",
+          type: "table",
+          data: {
+            column: ["id", "name"],
+            rows: [
+              [1, "Saleh"],
+              [2, "Jacob"],
+            ],
+          },
+        },
+
+        {
+          id: "s1c2b19sb4",
+          type: "text",
+          data: {
+            text: "Russian People",
+          },
+        },
+        {
+          id: "s1c2b19sb5",
+          type: "table",
+          data: {
+            column: ["id", "name"],
+            rows: [
+              [4, "Jisan"],
+              [5, "Fredix"],
+            ],
+          },
+        },
+
+        {
+          id: "s1c2b19sb4",
+          type: "text",
+          data: {
+            text: "American People",
+          },
+        },
+        {
+          id: "s1c2b19sb9",
+          type: "table",
+          data: {
+            column: ["id", "name"],
+            rows: [
+              [7, "Willium"],
+              [2, "Jacob"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b21",
+      sub_blocks: [
+        {
+          id: "s1c2b21sb1",
+          type: "text",
+          data: {
+            text: `Now if we want make big table of the names, so we will do UNION`,
+          },
+        },
+
+        {
+          id: "s1c2b21sb2",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT names FROM indian_table
+UNION
+SELECT names FROM russian_table
+UNION
+SELECT names FROM american_table`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b20",
+      sub_blocks: [
+        {
+          id: "s1c2b20sb4",
+          type: "text",
+          data: {
+            text: "The result will be all people's name",
+          },
+        },
+        {
+          id: "s1c2b20sb1",
+          type: "table",
+          data: {
+            column: ["name"],
+            rows: [["Saleh"], ["Jacob"], ["Jisan"], ["Fredix"], ["Willium"]],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b22",
+      sub_blocks: [
+        {
+          id: "s1c2b22sb4",
+          type: "text",
+          data: {
+            text: "Note UNION only return DISTINCT names, while see above table, Jacob came in American and Indian people table also. So if we want all the records we use UNION ALL",
+          },
+        },
+        {
+          id: "s1c2b22sb2",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT names FROM indian_table
+UNION ALL
+SELECT names FROM russian_table
+UNION ALL
+SELECT names FROM american_table`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b23",
+      sub_blocks: [
+        {
+          id: "s1c2b23sb4",
+          type: "text",
+          data: {
+            text: "The result will be all people's name",
+          },
+        },
+        {
+          id: "s1c2b23sb1",
+          type: "table",
+          data: {
+            column: ["name"],
+            rows: [
+              ["1. Saleh"],
+              ["2. Jacob"],
+              ["3. Jisan"],
+              ["4. Fredix"],
+              ["5. Willium"],
+              ["6. Jacob"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b24",
+      sub_blocks: [
+        {
+          id: "s1c2b24sb1",
+          type: "text",
+          data: {
+            text: `You can also combine UNION ALL with aggregate functions, GROUP BY, and ORDER BY to summarize data across multiple tables. The trick is to wrap the UNION ALL inside a subquery, then apply grouping and sorting on top of it.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b25",
+      sub_blocks: [
+        {
+          id: "s1c2b25sb1",
+          type: "text",
+          data: {
+            text: `For example, suppose we want to count how many times each name appears across both tables:
+`,
+          },
+        },
+
+        {
+          id: "s1c2b25sb2",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT name, COUNT(*) AS total_count
+FROM (
+    SELECT name FROM indean_people
+    UNION ALL
+    SELECT name FROM american_people
+    UNION ALL
+    SELECT name FROM russian_people
+) AS combined
+GROUP BY name
+ORDER BY total_count DESC`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b26",
+      sub_blocks: [
+        {
+          id: "s1c2b26sb1",
+          type: "text",
+          data: {
+            text: "The result will Be :",
+          },
+        },
+        {
+          id: "s1c2b26sb1",
+          type: "table",
+          data: {
+            column: ["name", "total_count"],
+            rows: [
+              ["1. Saleh", 1],
+              ["2. Jacob", 2],
+              ["3. Jisan", 1],
+              ["4. Fredix", 1],
+              ["5. Willium", 1],
+            ],
+          },
+        },
+
+        {
+          id: "s1c2b26sb3",
+          type: "text",
+          data: {
+            text: `Here, UNION ALL (not UNION ) is used so that duplicates like Lena are kept. Otherwise they would be removed before counting. The subquery merges all rows, and then GROUP BY +  COUNT summarize them. ORDER BY sorts the final result.`,
+          },
+        },
+      ],
+    },
   ],
 };
 
-const sec1chapters = [sec1chapter1, sec1chapter2];
+const sec1chapters = [sec1chapter1, sec1chapter10];
 
 const sections1 = [
   {
