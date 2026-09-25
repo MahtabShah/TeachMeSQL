@@ -198,7 +198,7 @@ function App() {
           <img
             src={logo}
             alt="TeachMeSQL"
-            className="h-40 w-auto max-w-[172px] object-contain sm:h-11"
+            className="h-40 w-auto max-w-[170px] object-contain sm:h-11"
           />
         </div>
 

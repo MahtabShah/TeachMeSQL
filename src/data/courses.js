@@ -933,6 +933,238 @@ ORDER BY total_count DESC`,
         },
       ],
     },
+
+    {
+      id: "s1c2b27",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b27q1",
+          type: "quiz",
+          data: [
+            {
+              question:
+                "Complete the query to combine all names including duplicates",
+              type: "code",
+              data: {
+                code: `SELECT name FROM customers
+UNION ALL
+SELECT name FROM suppliers`,
+                language: "sql",
+              },
+              options: ["UNION", "JOIN & ON", "UNION ALL", "CONCAT BOTH"],
+              answer: 2,
+            },
+
+            {
+              question: "What is the key difference between UNION and JOIN?",
+              type: "text",
+              options: [
+                "JOIN removes duplicate values automatically",
+                "UNION and JOIN are interchangeable operations",
+                "UNION stacks tables vertically, JOIN combines tables horizontally using conditions",
+                "UNION requires matching conditions between tables",
+              ],
+              answer: 2,
+            },
+
+            {
+              question:
+                "When using UNION, the columns in corresponding positions must have compatible data types.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question:
+                "A UNION between a SELECT with 3 columns and a SELECT with 2 columns will execute successfully.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 1,
+            },
+
+            {
+              question: "What does UNION do with duplicate rows?",
+              type: "text",
+              options: [
+                "Keeps all duplicates in the result",
+                "Removes duplicates, returning only distinct values",
+                "Merges duplicates into a single row with combined data",
+                "Throws an error when duplicates exist",
+              ],
+              answer: 1,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b3",
+      sub_blocks: [
+        {
+          id: "s1c2b3sb1",
+          type: "heading",
+          data: {
+            text: `Simplify queries, WITH keyword.
+            `,
+          },
+        },
+
+        {
+          id: "s1c2b3sb2",
+          type: "text",
+          data: {
+            text: `Queries can get too messy by adding many inner queries. For example here is a query that has many sub-queries:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b30",
+      sub_blocks: [
+        {
+          id: "s1c2b3swb2",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT * FROM table1
+WHERE col2 IN (
+    SELECT col1 FROM table2
+    WHERE col3 + col2 > 3 AND col5 LIKE '%test%' AND col6 IN (
+        SELECT col5 FROM table3
+        WHERE col1 AND col3 OR col2
+    )
+)`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b31",
+      sub_blocks: [
+        {
+          id: "s1c2b3s3wb2",
+          type: "text",
+          data: {
+            text: `To make it easier we can use the WITH query_name AS (...) keyword. It allows us to save a query with a name and use it wherever we want:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b33",
+      sub_blocks: [
+        {
+          id: "s1c2b3sw32",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `WITH query1 AS (
+    SELECT col5 FROM table3
+    WHERE col1 AND col3 OR col2
+), query2 AS (
+    SELECT col1 FROM table2
+    WHERE col3 + col2 > 3 AND col5 LIKE '%test%' AND col6 IN query1
+)
+SELECT * FROM table1
+WHERE col2 IN (SELECT col1 FROM query2) AND col4 IN (SELECT col5 FROM query1)`,
+          },
+        },
+
+        {
+          type: "text",
+          id: "s1c2b3sw33",
+          data: {
+            text: `Here we reused query1 in query2 and in the main query.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b37",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b37q1",
+          type: "quiz",
+          data: [
+            {
+              question: "What is the purpose of WITH ... AS in SQL?",
+              type: "text",
+              data: {
+                text: ``,
+              },
+              options: [
+                "To name and reuse subqueries",
+                "To create permanent tables",
+                "To add comments to queries",
+              ],
+              answer: 0,
+            },
+
+            {
+              question: "Define a named query called active_users ?",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `___ active_users ___ (
+    SELECT * FROM users WHERE status = 'active'
+)
+SELECT * FROM active_users`,
+              },
+
+              options: [
+                "CREATE & WITH",
+                "WITH & AS",
+                "DEFINE & AS",
+                "AS & WITH",
+              ],
+              answer: 1,
+            },
+
+            {
+              question:
+                "A named query defined second in a WITH clause can reference a named query defined first.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question:
+                "What separates multiple named queries in a WITH clause?",
+              type: "text",
+              options: [
+                "The AND keyword",
+                "Another WITH keyword",
+                "A comma",
+                "A semicolon",
+              ],
+              answer: 2,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b40",
+      sub_blocks: [
+        {
+          type: "heading",
+          id: "s1c2b3sw33",
+          data: {
+            text: `Congratulations You Compleated this Chapter. Click on button to moove forword.`,
+          },
+        },
+      ],
+    },
   ],
 };
 

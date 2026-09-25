@@ -201,9 +201,7 @@ function ChapterView({
         );
       })}
 
-      <div
-        className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 px-4 py-3 backdrop-blur sm:px-6 lg:right-70"
-        style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}>
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 px-4 py-2 backdrop-blur sm:px-4 lg:right-70">
         <div className="mx-auto flex w-full max-w-4xl justify-end">
           <div className="mr-3 w-12">
             <button

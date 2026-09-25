@@ -32,17 +32,17 @@ body {
 }
 
 .code-block {
-  background: #1e1f24;
+  background: #141518;
 }
 
 .code-block .hljs {
   background: transparent;
-  color: #bcc7dc;
+  color: #ccd4e4;
 }
 
 /* SQL keywords */
 .code-block .hljs-keyword {
-  color: #c75ce8;
+  color: #cc4af4;
 }
 
 /* Strings */
@@ -67,7 +67,7 @@ body {
 
 /* Everything else */
 .code-block .hljs {
-  color: #bec8dc;
+  color: #c8d2e7;
 }
 
 /* // netlify button none  */
