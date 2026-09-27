@@ -119,7 +119,7 @@ const Quiz = forwardRef(function Quiz({ quizzes, onPass, onStateChange }, ref) {
   const barWidth = `${100 - progressPct}%`;
 
   return (
-    <div className="flex h-full w-full min-w-0 flex-col justify-between">
+    <div className="flex h-ull border border-slate-300 p-3 h-[calc(100dvh-10rem)] w-full min-w-0 flex-col justify-between">
       {popUp && (
         <div
           className="fixed left-1/2 top-20 z-[400] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2"

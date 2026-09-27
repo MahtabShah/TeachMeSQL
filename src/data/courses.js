@@ -1168,7 +1168,387 @@ SELECT * FROM active_users`,
   ],
 };
 
-const sec1chapters = [sec1chapter1, sec1chapter10];
+const sec1chapter11 = {
+  id: "Window Functions part 1",
+  title: "Window Functions part 1",
+  order: 1,
+
+  contents: [
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `ROW_NUMBER function`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `Window functions perform calculations across a set of table rows related to the current row. Unlike regular aggregate functions, window functions don't collapse the results into a single row.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b2",
+      sub_blocks: [
+        {
+          id: "wf1b2sb1",
+          type: "text",
+          data: {
+            text: `They're particularly useful when you need to:`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "list",
+          data: {
+            lists: [
+              "Calculate running totals",
+              "Rank items within groups",
+              "Compare current rows with previous/following rows",
+              "Analyze trends over time periods",
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b3",
+      sub_blocks: [
+        {
+          id: "wf1b3sb1",
+          type: "text",
+          data: {
+            text: `For example here are some real world examples for window functions use-case:`,
+          },
+        },
+
+        {
+          id: "wf1b3sb2",
+          type: "text",
+          data: {
+            text: `Sales Analysis`,
+          },
+        },
+
+        {
+          id: "wf1b1sb3",
+          type: "list",
+          data: {
+            lists: [
+              "Calculate cumulative sales up to each year (1995, 1997, 1999)",
+              "Find top-selling products for each quarter",
+            ],
+          },
+        },
+
+        {
+          id: "wf1b3sb4",
+          type: "text",
+          data: {
+            text: `Sports Statistics`,
+          },
+        },
+
+        {
+          id: "wf1b1sb4",
+          type: "list",
+          data: {
+            lists: [
+              "Track Olympic medal counts across different years",
+              "Identify leading athletes in each competition period (2000, 2004, 2008)",
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b4",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `ROW_NUMBER() is one of the simplest window functions. It assigns a unique sequential number to each row in the result set. Here how to use it:`,
+          },
+        },
+
+        {
+          id: "wf1b1sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT column1, column2,
+       ROW_NUMBER() OVER ([PARTITION BY column] [ORDER BY column]) as row_num
+FROM table_name;`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b5",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `It is mandatory to use the OVER clause with ROW_NUMBER() : ROW_NUMBER() OVER ()`,
+          },
+        },
+        {
+          id: "wf1b1sb3",
+          type: "text",
+          data: {
+            text: `For Example : `,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b6",
+      sub_blocks: [
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT product_name, sale_date,
+       ROW_NUMBER() OVER () as row_num
+FROM sales;`,
+          },
+        },
+
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `This adds a row_num column that counts from 1 to the total number of rows.
+
+Note: The OVER clause can contain ordering and partitioning instructions to control how the numbering works.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question: "Which task is window functions best suited for?",
+              type: "text",
+
+              options: [
+                "Joining multiple tables together",
+                "Deleting duplicate records from a table",
+                "Creating new tables from existing data",
+                "Calculating running totals while showing each row",
+              ],
+              answer: 3,
+            },
+
+            {
+              question: "What does ROW_NUMBER() OVER () return?",
+              type: "text",
+              options: [
+                "The row's position in the original table",
+                "A random number for each row",
+                "A unique sequential number for each row",
+                "The total count of all rows",
+              ],
+              answer: 2,
+            },
+
+            {
+              question: "Complete the query to add row numbers to the results",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT product_name, sale_date,
+       ___ ___ () as row_num
+FROM sales;`,
+              },
+              options: ["SUM() & WITH", "COUNT() & BY", "ROW_NUMBER() & OVER"],
+              answer: 2,
+            },
+
+            {
+              question: "The OVER clause is optional when using ROW_NUMBER().",
+              type: "text",
+              options: ["True", "False"],
+              answer: 1,
+            },
+
+            {
+              question:
+                "What makes window functions different from regular aggregate functions?",
+
+              options: [
+                "They don't collapse results into a single row",
+                "They run faster than aggregate functions",
+                "They can only work with numeric data",
+                "They don't require the OVER clause",
+              ],
+              answer: 0,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b9",
+      sub_blocks: [
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `ORDER BY criterion :
+            One of the OVER() options are the ORDER BY`,
+          },
+        },
+        ,
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROW_NUMBER() OVER (ORDER BY year DESC) as row_num`,
+          },
+        },
+
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `This will generate a column that will number the rows following the descending year order.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question:
+                "The ORDER BY clause can be used inside the OVER() clause of a window function.",
+              type: "text",
+
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "ROW_NUMBER() can be used without the OVER() clause.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 1,
+            },
+
+            {
+              question:
+                "Complete the window function to number rows by ascending score.",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT name, score,
+       ROW_NUMBER() ___ (___ BY score ASC) as rank
+FROM players`,
+              },
+              options: [
+                "OVER & SORT",
+                "PARTITION & ORDER",
+                "GROUP & OVER",
+                "OVER & ORDER",
+              ],
+              answer: 3,
+            },
+
+            {
+              question:
+                "What does ROW_NUMBER() OVER (ORDER BY year DESC) produce?",
+              type: "text",
+              options: [
+                "Sequential numbers based on descending year order",
+                "Random numbers assigned to each row",
+                "The actual year values in descending order",
+                "A count of total rows in the table",
+              ],
+              answer: 0,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
+          type: "heading",
+          data: {
+            text: `PARTITION BY criterion`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `Another option for the OVER () clause is PARTITION BY
+It allows us to number the rows for each group separately `,
+          },
+        },
+
+        {
+          id: "wf1b1s3",
+          type: "text",
+          data: {
+            text: `For Example`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "heading",
+          data: {
+            text: `Continue.... we will come soon.... be ready....`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const sec1chapters = [sec1chapter1, sec1chapter10, sec1chapter11];
 
 const sections1 = [
   {

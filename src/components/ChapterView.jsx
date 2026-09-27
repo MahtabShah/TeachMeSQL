@@ -189,7 +189,7 @@ function ChapterView({
           <section
             key={block.id}
             ref={isLatest ? latestContentRef : null}
-            className="scroll-mt-20 sm:py-2">
+            className="scroll-mt-20 mt-5 sm:py-2">
             <ContentRenderer
               contents={[block]}
               quizRef={quizRef}

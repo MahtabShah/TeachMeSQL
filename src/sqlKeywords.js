@@ -85,6 +85,7 @@ export const mySet = new Set([
   "PARTITION",
   "WINDOW",
   "ROW",
+  "ROW_NUMBER()",
   "RANGE",
   "GROUPS",
   "CURRENT",

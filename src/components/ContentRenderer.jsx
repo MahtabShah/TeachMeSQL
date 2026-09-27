@@ -64,6 +64,18 @@ function ContentRenderer({
 
     table: (block) => <Table table={block.data} />,
 
+    list: (block) => (
+      <div className="border-t border-slate-200 bg-slate-50 px-5 py-4">
+        <ul className="list-disc space-y-2 pl-4 leading-6 text-slate-700">
+          {block.data?.lists?.map((item, index) => (
+            <li key={index} className="pl-1">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    ),
+
     code: (block) => (
       <CodeBlock code={block?.data?.code} language={block?.data?.language} />
     ),
@@ -143,13 +155,13 @@ function ContentRenderer({
               return (
                 <div
                   key={sub.id}
-                  className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">
+                  className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-slate-500">
                   Unsupported content type: {sub.type}
                 </div>
               );
             }
             return (
-              <div key={sub.id} className="mb-2 mt-5 w-full min-w-0">
+              <div key={sub.id} className="mt-4 w-full min-w-0">
                 {render(sub)}
               </div>
             );
