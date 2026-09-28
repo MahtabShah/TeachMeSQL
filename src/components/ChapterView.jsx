@@ -175,13 +175,11 @@ function ChapterView({
     );
   }
 
-  const btnClass = `w-full rounded-[40px] bg-slate-900 px-20 py-2.5 text-sm font-semibold text-white transition duration-150 hover:bg-slate-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto`;
+  const btnClass = `w-full round-ed-[40px] bg-slate-900 px-20 py-2.5 text-sm font-semibold text-white transition duration-150 hover:bg-slate-800 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto`;
 
   return (
     <div>
-      <h4 className="text-xl font-bold tracking-tight sm:text-3xl">
-        {chapter.title}
-      </h4>
+      <h4 className="text-xl font-bold sm:text-3xl">{chapter.title}</h4>
 
       {contents.slice(0, visibleCount).map((block, index, arr) => {
         const isLatest = index === arr.length - 1;
@@ -189,7 +187,7 @@ function ChapterView({
           <section
             key={block.id}
             ref={isLatest ? latestContentRef : null}
-            className="scroll-mt-20 mt-5 sm:py-2">
+            className="scroll-mt-20 sm:py-2">
             <ContentRenderer
               contents={[block]}
               quizRef={quizRef}
@@ -201,9 +199,9 @@ function ChapterView({
         );
       })}
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 px-4 py-2 backdrop-blur sm:px-4 lg:right-70">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200 bg-white/95 px-3 py-2 backdrop-blur sm:px-4 lg:right-70">
         <div className="mx-auto flex w-full max-w-4xl justify-end">
-          <div className="mr-3 w-12">
+          {/* <div className="mr-3 w-12">
             <button
               type="button"
               onClick={() =>
@@ -215,7 +213,7 @@ function ChapterView({
               aria-label="Scroll to top">
               ↑
             </button>
-          </div>
+          </div> */}
 
           {currentBlock?.type === "quiz" ? (
             <button

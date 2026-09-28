@@ -51,13 +51,13 @@ function ContentRenderer({
 
   const renderers = {
     heading: (block) => (
-      <h3 className="mb-3 text-lg font-semibold leading-7 text-slate-900 sm:text-xl sm:leading-8">
+      <h3 className="text-md font-semibold leading-7 text-slate-600 sm:text-xl sm:leading-8">
         {block?.data?.text ?? ""}
       </h3>
     ),
 
     text: (block) => (
-      <p className="leading-7 text-base text-slate-700 sm:text-base sm:leading-7">
+      <p className="leading-7 text-sm text-slate-700 sm:text-base sm:leading-7">
         {renderTextWithKeywords(block?.data?.text)}
       </p>
     ),
@@ -66,9 +66,9 @@ function ContentRenderer({
 
     list: (block) => (
       <div className="border-t border-slate-200 bg-slate-50 px-5 py-4">
-        <ul className="list-disc space-y-2 pl-4 leading-6 text-slate-700">
+        <ul className="list-disc space-y-2 pl-2 leading-6 text-slate-700">
           {block.data?.lists?.map((item, index) => (
-            <li key={index} className="pl-1">
+            <li key={index} className="pl-1 text-sm">
               {item}
             </li>
           ))}

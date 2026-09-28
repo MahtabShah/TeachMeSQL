@@ -1170,7 +1170,7 @@ SELECT * FROM active_users`,
 
 const sec1chapter11 = {
   id: "Window Functions part 1",
-  title: "Window Functions part 1",
+  title: "Window Functions Part 1",
   order: 1,
 
   contents: [
@@ -1181,7 +1181,7 @@ const sec1chapter11 = {
           id: "wf1b1sb1",
           type: "heading",
           data: {
-            text: `ROW_NUMBER function`,
+            text: `ROW_NUMBER Function`,
           },
         },
 
@@ -1527,7 +1527,7 @@ It allows us to number the rows for each group separately `,
           id: "wf1b1s3",
           type: "text",
           data: {
-            text: `For Example`,
+            text: `For Example, see the table given below:`,
           },
         },
       ],
@@ -1538,9 +1538,1301 @@ It allows us to number the rows for each group separately `,
       sub_blocks: [
         {
           id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "type"],
+            rows: [
+              ["132", "t1"],
+              ["52", "t2"],
+              ["92", "t1"],
+              ["154", "t3"],
+              ["198", "t1"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b14",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, type,
+       ROW_NUMBER() OVER (PARTITION BY type ORDER BY id) as row_num
+FROM table1`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "text",
+          data: {
+            text: `This will generate a column that numbers the rows of each type separately, in id order (the result below is shown grouped by type):`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b15",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "type", "row_num"],
+            rows: [
+              [92, "t1", 1],
+              [132, "t1", 2],
+              [198, "t1", 3],
+              [52, "t2", 1],
+              [154, "t3", 1],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b16s2",
+          type: "text",
+          data: {
+            text: `id 92 has row_num 1 because it is the smallest id in type t1.
+
+Note: ROW_NUMBER() requires an ORDER BY clause within the OVER() to determine how rows should be numbered within each partition.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b16",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `We can even specify multiple columns inside the PARTITION BY:`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROW_NUMBER() OVER (PARTITION BY type, hue ORDER BY id)`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b17",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question:
+                "When using PARTITION BY, the ORDER BY clause inside OVER() determines the sequence in which rows are numbered within each partition.",
+              type: "text",
+
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "You can specify multiple columns inside PARTITION BY.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "Number products within each category by price",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT name, category,
+         ROW_NUMBER() OVER (___ category ORDER BY price) as rank
+FROM products`,
+              },
+              options: ["GROUP BY", "PARTITION BY", "ORDER BY"],
+              answer: 1,
+            },
+
+            {
+              question: "What does PARTITION BY do in a window function?",
+              type: "text",
+              options: [
+                "Filters rows based on a condition",
+                "Removes duplicate rows",
+                "Numbers rows separately within each group",
+                "Sorts the entire result set",
+              ],
+              answer: 2,
+            },
+
+            {
+              question:
+                "Given rows with types 'A', 'A', 'B', what row_num does the second 'A' row get?",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `ROW_NUMBER() OVER (PARTITION BY type ORDER BY id)`,
+              },
+              options: [0, 3, 1, 2],
+              answer: 3,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
           type: "heading",
           data: {
-            text: `Continue.... we will come soon.... be ready....`,
+            text: `PARTITION & ORDER`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `We can also combine PARTITION BY with ORDER BY. For example consider the following table1:
+`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "type"],
+            rows: [
+              ["132", "t1"],
+              ["52", "t2"],
+              ["92", "t1"],
+              ["154", "t3"],
+              ["198", "t1"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b16",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `We can even specify multiple columns inside the PARTITION BY:`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, type,
+       ROW_NUMBER() OVER(PARTITION BY type ORDER BY id) as row_num
+FROM table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will number the rows in ascending order by the id of each type:
+`,
+          },
+        },
+
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "type", "row_num"],
+            rows: [
+              [132, "t1", 2],
+              [52, "t2", 1],
+              [92, "t1", 1],
+              [154, "t3", 1],
+              [198, "t1", 3],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `Now id 132 has row_num 2 because it is larger than 92 and smaller than 198 (of all the t1 type rows).`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
+          type: "heading",
+          data: {
+            text: `LEAD & LAG Functions`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `The LEAD and LAG functions allow us to access the value of the current row by n steps back or n steps ahead.
+
+For example, if we want to calculate the ratio of a company's revenue for the current row and one month ago, we can extract the value from the previous month:
+`,
+          },
+        },
+
+        {
+          id: "wf1b1s3",
+          type: "text",
+          data: {
+            text: `For Example, see the table given below:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "month"],
+            rows: [
+              [1, 532, 5],
+              [2, 492, 6],
+              [3, 393, 7],
+              [4, 723, 8],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, revenue,
+       LAG(revenue, 1) OVER (ORDER BY MONTH) as prev_month_revenue
+FROM table1 ORDER BY id`,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will create the following table:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "prev_month_revenue"],
+            rows: [
+              [1, 532, "NULL"],
+              [2, 492, 532],
+              [3, 393, 492],
+              [4, 723, 393],
+            ],
+          },
+        },
+
+        {
+          id: "abcds",
+          type: "text",
+          data: {
+            text: "This way we can calculate the prev_month_revenue/revenue ratio.",
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `If we instead used the LEAD function, it would take the next month's revenue of each row:`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, revenue,
+       LAG(revenue, 1) OVER (ORDER BY MONTH) as prev_month_revenue
+FROM table1 ORDER BY id`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "prev_month_revenue"],
+            rows: [
+              [1, 532, 492],
+              [2, 492, 393],
+              [3, 393, 723],
+              [4, 723, "NULL"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question: "What does LAG(revenue, 1) return?",
+              type: "text",
+
+              options: [
+                "revenue from the next row",
+                "The minimum revenue value",
+                "revenue from the previous row",
+                "The sum of all previous revenues",
+              ],
+              answer: 2,
+            },
+
+            {
+              question:
+                "The first row in a LAG result will always contain NULL for the lagged column when using an offset of 1.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question:
+                "Complete the query to get each row's revenue from 2 months ago:",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT revenue,
+         LAG(revenue, 1) OVER (ORDER BY month) as prev_revenue
+FROM sales`,
+              },
+              options: ["PREV & 2", "LEAD & 2", "LAG & 2", , "LAG & -2"],
+              answer: 2,
+            },
+
+            {
+              question: "Which function retrieves the next row's value?",
+              type: "text",
+              options: ["FORWARD", "LAG", "NEXT", "LEAD"],
+              answer: 3,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b40",
+      sub_blocks: [
+        {
+          type: "heading",
+          id: "s1c2b3sw33",
+          data: {
+            text: `Congratulations You Compleated this Chapter. Click on button to moove forword.`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const sec1chapter12 = {
+  id: "Window Functions part 1",
+  title: "Window Functions Part 1",
+  order: 1,
+
+  contents: [
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `ROW_NUMBER Function`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `Window functions perform calculations across a set of table rows related to the current row. Unlike regular aggregate functions, window functions don't collapse the results into a single row.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b2",
+      sub_blocks: [
+        {
+          id: "wf1b2sb1",
+          type: "text",
+          data: {
+            text: `They're particularly useful when you need to:`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "list",
+          data: {
+            lists: [
+              "Calculate running totals",
+              "Rank items within groups",
+              "Compare current rows with previous/following rows",
+              "Analyze trends over time periods",
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b3",
+      sub_blocks: [
+        {
+          id: "wf1b3sb1",
+          type: "text",
+          data: {
+            text: `For example here are some real world examples for window functions use-case:`,
+          },
+        },
+
+        {
+          id: "wf1b3sb2",
+          type: "text",
+          data: {
+            text: `Sales Analysis`,
+          },
+        },
+
+        {
+          id: "wf1b1sb3",
+          type: "list",
+          data: {
+            lists: [
+              "Calculate cumulative sales up to each year (1995, 1997, 1999)",
+              "Find top-selling products for each quarter",
+            ],
+          },
+        },
+
+        {
+          id: "wf1b3sb4",
+          type: "text",
+          data: {
+            text: `Sports Statistics`,
+          },
+        },
+
+        {
+          id: "wf1b1sb4",
+          type: "list",
+          data: {
+            lists: [
+              "Track Olympic medal counts across different years",
+              "Identify leading athletes in each competition period (2000, 2004, 2008)",
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b4",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `ROW_NUMBER() is one of the simplest window functions. It assigns a unique sequential number to each row in the result set. Here how to use it:`,
+          },
+        },
+
+        {
+          id: "wf1b1sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT column1, column2,
+       ROW_NUMBER() OVER ([PARTITION BY column] [ORDER BY column]) as row_num
+FROM table_name;`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b5",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `It is mandatory to use the OVER clause with ROW_NUMBER() : ROW_NUMBER() OVER ()`,
+          },
+        },
+        {
+          id: "wf1b1sb3",
+          type: "text",
+          data: {
+            text: `For Example : `,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b6",
+      sub_blocks: [
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT product_name, sale_date,
+       ROW_NUMBER() OVER () as row_num
+FROM sales;`,
+          },
+        },
+
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `This adds a row_num column that counts from 1 to the total number of rows.
+
+Note: The OVER clause can contain ordering and partitioning instructions to control how the numbering works.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question: "Which task is window functions best suited for?",
+              type: "text",
+
+              options: [
+                "Joining multiple tables together",
+                "Deleting duplicate records from a table",
+                "Creating new tables from existing data",
+                "Calculating running totals while showing each row",
+              ],
+              answer: 3,
+            },
+
+            {
+              question: "What does ROW_NUMBER() OVER () return?",
+              type: "text",
+              options: [
+                "The row's position in the original table",
+                "A random number for each row",
+                "A unique sequential number for each row",
+                "The total count of all rows",
+              ],
+              answer: 2,
+            },
+
+            {
+              question: "Complete the query to add row numbers to the results",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT product_name, sale_date,
+       ___ ___ () as row_num
+FROM sales;`,
+              },
+              options: ["SUM() & WITH", "COUNT() & BY", "ROW_NUMBER() & OVER"],
+              answer: 2,
+            },
+
+            {
+              question: "The OVER clause is optional when using ROW_NUMBER().",
+              type: "text",
+              options: ["True", "False"],
+              answer: 1,
+            },
+
+            {
+              question:
+                "What makes window functions different from regular aggregate functions?",
+
+              options: [
+                "They don't collapse results into a single row",
+                "They run faster than aggregate functions",
+                "They can only work with numeric data",
+                "They don't require the OVER clause",
+              ],
+              answer: 0,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b9",
+      sub_blocks: [
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `ORDER BY criterion :
+            One of the OVER() options are the ORDER BY`,
+          },
+        },
+        ,
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROW_NUMBER() OVER (ORDER BY year DESC) as row_num`,
+          },
+        },
+
+        {
+          id: "wf1b6sb3",
+          type: "text",
+          data: {
+            text: `This will generate a column that will number the rows following the descending year order.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question:
+                "The ORDER BY clause can be used inside the OVER() clause of a window function.",
+              type: "text",
+
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "ROW_NUMBER() can be used without the OVER() clause.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 1,
+            },
+
+            {
+              question:
+                "Complete the window function to number rows by ascending score.",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT name, score,
+       ROW_NUMBER() ___ (___ BY score ASC) as rank
+FROM players`,
+              },
+              options: [
+                "OVER & SORT",
+                "PARTITION & ORDER",
+                "GROUP & OVER",
+                "OVER & ORDER",
+              ],
+              answer: 3,
+            },
+
+            {
+              question:
+                "What does ROW_NUMBER() OVER (ORDER BY year DESC) produce?",
+              type: "text",
+              options: [
+                "Sequential numbers based on descending year order",
+                "Random numbers assigned to each row",
+                "The actual year values in descending order",
+                "A count of total rows in the table",
+              ],
+              answer: 0,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
+          type: "heading",
+          data: {
+            text: `PARTITION BY criterion`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `Another option for the OVER () clause is PARTITION BY
+It allows us to number the rows for each group separately `,
+          },
+        },
+
+        {
+          id: "wf1b1s3",
+          type: "text",
+          data: {
+            text: `For Example, see the table given below:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "type"],
+            rows: [
+              ["132", "t1"],
+              ["52", "t2"],
+              ["92", "t1"],
+              ["154", "t3"],
+              ["198", "t1"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b14",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, type,
+       ROW_NUMBER() OVER (PARTITION BY type ORDER BY id) as row_num
+FROM table1`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "text",
+          data: {
+            text: `This will generate a column that numbers the rows of each type separately, in id order (the result below is shown grouped by type):`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b15",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "type", "row_num"],
+            rows: [
+              [92, "t1", 1],
+              [132, "t1", 2],
+              [198, "t1", 3],
+              [52, "t2", 1],
+              [154, "t3", 1],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b16s2",
+          type: "text",
+          data: {
+            text: `id 92 has row_num 1 because it is the smallest id in type t1.
+
+Note: ROW_NUMBER() requires an ORDER BY clause within the OVER() to determine how rows should be numbered within each partition.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b16",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `We can even specify multiple columns inside the PARTITION BY:`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROW_NUMBER() OVER (PARTITION BY type, hue ORDER BY id)`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b17",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question:
+                "When using PARTITION BY, the ORDER BY clause inside OVER() determines the sequence in which rows are numbered within each partition.",
+              type: "text",
+
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "You can specify multiple columns inside PARTITION BY.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question: "Number products within each category by price",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT name, category,
+         ROW_NUMBER() OVER (___ category ORDER BY price) as rank
+FROM products`,
+              },
+              options: ["GROUP BY", "PARTITION BY", "ORDER BY"],
+              answer: 1,
+            },
+
+            {
+              question: "What does PARTITION BY do in a window function?",
+              type: "text",
+              options: [
+                "Filters rows based on a condition",
+                "Removes duplicate rows",
+                "Numbers rows separately within each group",
+                "Sorts the entire result set",
+              ],
+              answer: 2,
+            },
+
+            {
+              question:
+                "Given rows with types 'A', 'A', 'B', what row_num does the second 'A' row get?",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `ROW_NUMBER() OVER (PARTITION BY type ORDER BY id)`,
+              },
+              options: [0, 3, 1, 2],
+              answer: 3,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
+          type: "heading",
+          data: {
+            text: `PARTITION & ORDER`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `We can also combine PARTITION BY with ORDER BY. For example consider the following table1:
+`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "type"],
+            rows: [
+              ["132", "t1"],
+              ["52", "t2"],
+              ["92", "t1"],
+              ["154", "t3"],
+              ["198", "t1"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b16",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `We can even specify multiple columns inside the PARTITION BY:`,
+          },
+        },
+
+        {
+          id: "wf1b15",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, type,
+       ROW_NUMBER() OVER(PARTITION BY type ORDER BY id) as row_num
+FROM table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will number the rows in ascending order by the id of each type:
+`,
+          },
+        },
+
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "type", "row_num"],
+            rows: [
+              [132, "t1", 2],
+              [52, "t2", 1],
+              [92, "t1", 1],
+              [154, "t3", 1],
+              [198, "t1", 3],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `Now id 132 has row_num 2 because it is larger than 92 and smaller than 198 (of all the t1 type rows).`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1s1",
+          type: "heading",
+          data: {
+            text: `LEAD & LAG Functions`,
+          },
+        },
+
+        {
+          id: "wf1b1s2",
+          type: "text",
+          data: {
+            text: `The LEAD and LAG functions allow us to access the value of the current row by n steps back or n steps ahead.
+
+For example, if we want to calculate the ratio of a company's revenue for the current row and one month ago, we can extract the value from the previous month:
+`,
+          },
+        },
+
+        {
+          id: "wf1b1s3",
+          type: "text",
+          data: {
+            text: `For Example, see the table given below:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "month"],
+            rows: [
+              [1, 532, 5],
+              [2, 492, 6],
+              [3, 393, 7],
+              [4, 723, 8],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, revenue,
+       LAG(revenue, 1) OVER (ORDER BY MONTH) as prev_month_revenue
+FROM table1 ORDER BY id`,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will create the following table:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "prev_month_revenue"],
+            rows: [
+              [1, 532, "NULL"],
+              [2, 492, 532],
+              [3, 393, 492],
+              [4, 723, 393],
+            ],
+          },
+        },
+
+        {
+          id: "abcds",
+          type: "text",
+          data: {
+            text: "This way we can calculate the prev_month_revenue/revenue ratio.",
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `If we instead used the LEAD function, it would take the next month's revenue of each row:`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, revenue,
+       LAG(revenue, 1) OVER (ORDER BY MONTH) as prev_month_revenue
+FROM table1 ORDER BY id`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b15s1",
+          type: "table",
+          data: {
+            column: ["id", "revenue", "prev_month_revenue"],
+            rows: [
+              [1, 532, 492],
+              [2, 492, 393],
+              [3, 393, 723],
+              [4, 723, "NULL"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c3b8",
+      type: "quiz",
+      sub_blocks: [
+        {
+          id: "s1c2b8q1",
+          type: "quiz",
+          data: [
+            {
+              question: "What does LAG(revenue, 1) return?",
+              type: "text",
+
+              options: [
+                "revenue from the next row",
+                "The minimum revenue value",
+                "revenue from the previous row",
+                "The sum of all previous revenues",
+              ],
+              answer: 2,
+            },
+
+            {
+              question:
+                "The first row in a LAG result will always contain NULL for the lagged column when using an offset of 1.",
+              type: "text",
+              options: ["True", "False"],
+              answer: 0,
+            },
+
+            {
+              question:
+                "Complete the query to get each row's revenue from 2 months ago:",
+              type: "code",
+              data: {
+                language: "sql",
+                code: `SELECT revenue,
+         LAG(revenue, 1) OVER (ORDER BY month) as prev_revenue
+FROM sales`,
+              },
+              options: ["PREV & 2", "LEAD & 2", "LAG & 2", , "LAG & -2"],
+              answer: 2,
+            },
+
+            {
+              question: "Which function retrieves the next row's value?",
+              type: "text",
+              options: ["FORWARD", "LAG", "NEXT", "LEAD"],
+              answer: 3,
+            },
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b40",
+      sub_blocks: [
+        {
+          type: "heading",
+          id: "s1c2b3sw33",
+          data: {
+            text: `Congratulations You Compleated this Chapter. Click on button to moove forword.`,
           },
         },
       ],
