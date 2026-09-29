@@ -63,6 +63,11 @@ function ContentRenderer({
     ),
 
     table: (block) => <Table table={block.data} />,
+    pre: (block) => (
+      <pre className="leading-7 text-sm text-slate-700 sm:text-base sm:leading-7">
+        {block.data.text}
+      </pre>
+    ),
 
     list: (block) => (
       <div className="border-t border-slate-200 bg-slate-50 px-5 py-4">
