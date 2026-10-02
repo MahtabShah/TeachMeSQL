@@ -1,3 +1,555 @@
+const sec1chapter7 = {
+  id: "sql-sec1-chapter-5",
+  title: "Statistics",
+  order: 1,
+
+  contents: [
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Built-In Aggregate Part 1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `There are many built-in functions in SQL but we will cover the aggregate functions in this lesson.
+
+An aggregate function receives a field as input and calculates something over this field. The most common aggregate functions are:
+
+MAX - Returns the max value of a field
+MIN - Returns the min value of a field
+AVG - Returns the average value of a field
+COUNT - Returns the total number of records
+SUM - Return the sum of all non-null values in a field
+You can use these functions in your SELECT statement like this:
+`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT MAX(col1), MIN(col2), AVG(col3), ...`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `For example, to find the highest salary in an employees table:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT MAX(salary) FROM employees`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Or to get multiple aggregates at once:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT MAX(salary), MIN(salary), AVG(salary) FROM employees`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Built-In Aggregate Part 2`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Sometimes we need to use aggregate functions in more complex ways, such as comparing each row with an aggregate value. This is where nested queries come in handy.
+
+When you want to perform calculations that combine individual rows with aggregate values, you need to use a nested query. Here's why:
+This won't give the per-row result you want:
+`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT value + MIN(value)
+FROM table1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `The reason is that aggregate functions work on the entire column, while the 'value' reference is trying to work row by row. To solve this, we use a nested query:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT value + (SELECT MIN(value) FROM table1)
+FROM table1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `This works because the nested query (SELECT MIN(value) FROM table1) is executed first and returns a single value, which can then be used in the main query for each row.
+
+Common use cases for nested aggregates:
+1. Comparing each value to the average
+
+2. Calculating percentage of total
+
+3. Finding differences from maximum or minimum values`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Grouping Part 1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `We have calculated data for the entire field thus far, and now we will introduce the ability to calculate data for specific groups.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `workers`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "table",
+          data: {
+            column: ["id", "area", "age"],
+            rows: [
+              [1, "A", 35],
+              [2, "A", 37],
+              [3, "B", 29],
+              [4, "B", 39],
+            ],
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `if we write`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT AVG(age) as avg_age FROM workers`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `We will receive only the average age of all the workers together. 
+
+What if we want to calculate the average age for each area?
+
+For that, we can use the GROUP BY keywords`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT area, AVG(age) as avg_age FROM workers
+GROUP BY area`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `The result:`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "table",
+          data: {
+            column: ["area", "age"],
+            rows: [
+              ["A", 36],
+              ["B", 34],
+            ],
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `Now we know that the average age in Area A is 36 and the average age in Area B is 34.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Grouping Part 2`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `The WHERE keyword runs a condition on each record separately. For example:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT * FROM table1
+WHERE col1 > col2`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `The col1 > col2 will run on every record and check if it is met.
+
+But what if we want to filter aggregate results? For example:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT category, AVG(price) FROM table1
+WHERE AVG(price) > 40
+GROUP BY category`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `This will not work because WHERE cannot check any aggregations. For that, we have the HAVING keyword. It filters data by the aggregate condition.`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT category, AVG(price) FROM table1
+GROUP BY category
+HAVING AVG(price) > 40`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `This will filter all the categories for which the average price is greater than 40.
+
+If we want to combine HAVING and WHERE clause we will write:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT category, AVG(price) FROM table1
+WHERE price > 25
+GROUP BY category
+HAVING AVG(price) > 40`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `This will first go record by record and filter all the records for which the price is greater than 25, and only after that will it run the GROUP BY clause and filter every category for which the average price is greater than 40.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Subqueries Part 1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Subqueries allow us to combine multiple queries into one. For example consider the following employees table:`,
+          },
+        },
+
+        {
+          id: "isbc-2",
+          type: "table",
+          data: {
+            column: ["id", "salary"],
+            rows: [
+              [1, 48],
+              [2, 34],
+              [3, 46],
+              [4, 13],
+              [5, 28],
+            ],
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `We need a subquery because we can't use WHERE salary > AVG(salary) directly since aggregate functions like AVG() can't be used in a WHERE clause - they can only be used after the data has been grouped.`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `A subquery helps us find employees who earn more than the company's average salary by first calculating the average (inner query) and then using that value to filter employees (outer query).
+
+Since the average is: (48 + 34 + 46 + 13 + 28) / 5 = 33.8, this is the result of the query:
+`,
+          },
+        },
+
+        {
+          id: "isbc-2",
+          type: "table",
+          data: {
+            column: ["id", "salary"],
+            rows: [
+              [1, 48],
+              [2, 34],
+              [3, 46],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Subqueries Part 2`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `There are three main types of subqueries:
+
+Scalar Subqueries - Returns a single value (one row, one column)
+Row Subqueries - Returns a single row with multiple columns
+Table Subqueries - Returns multiple rows and columns
+For example here are some use cases for each subquery type:
+
+Scalar Subquery - Find employees who earn more than the average salary:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT name, salary
+FROM employees
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employees
+);`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Row Subquery - Find employee(s) with the same department and salary as Alice`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT name
+FROM employees
+WHERE (department, salary) = (
+    SELECT department, salary
+    FROM employees
+    WHERE name = 'Alice'
+);`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Table Subqueries - Show departments and their employee count`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT department, count
+FROM (
+    SELECT department, COUNT(*) as count
+    FROM employees
+    GROUP BY department
+) as dept_counts;`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Notice the use cases:
+
+Scalar - Simple comparisons (>, <, =)
+When you need to match multiple columns
+When you need to query from a result set`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const sec1chapter6 = {
   id: "sql-sec1-chapter-5",
   title: "Dates Operation",
@@ -269,7 +821,8 @@ const sec1chapter5 = {
           data: {
             column: ["Operator", "Operation"],
             rows: [
-              ["+", "Addition"][("-", "Subtraction")],
+              ["+", "Addition"],
+              ["-", "Subtraction"],
               ["*", "Multiplication"],
               ["/", "Division"],
             ],
@@ -4348,6 +4901,7 @@ const sec1chapters = [
   sec1chapter4,
   sec1chapter5,
   sec1chapter6,
+  sec1chapter7,
   sec1chapter10,
   sec1chapter11,
   sec1chapter12,
