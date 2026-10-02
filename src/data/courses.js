@@ -1,3 +1,594 @@
+const sec1chapter6 = {
+  id: "sql-sec1-chapter-5",
+  title: "Dates Operation",
+  order: 1,
+
+  contents: [
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Handling Dates Part 1`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Dates in SQL have a specific format and we can query them similarly to numbers. To write a date in a query we will use the format: YYYY-MM-DD (2012-09-24)
+To query dates we can use all the operators we already know - bigger (>), smaller (<), or equal (=) within the WHERE keyword:
+`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT * FROM table1
+WHERE col1 > '2011-01-13'`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `We can even use the BETWEEN keyword:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT * FROM table1
+WHERE col1 BETWEEN '2010-01-01' AND '2010-02-25'`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Handling Dates Part 2`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Dates cannot be added or subtracted like numbers. To perform calculations on dates, we must convert them to numbers using the JULIANDAY function.
+
+This function converts dates to the Julian day, a continuous count of days since January 1, 4713 BC, which is used by astronomers for time intervals and comparisons between different calendars.
+
+Note that in the Julian day system, the day begins at noon (12:00:00), so a fractional part of .0 represents exactly noon and a fractional part of .5 represents exactly midnight.
+`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `To use it we will write:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT JULIANDAY('2023-02-20 12:00:00')`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `This will return 2459996.0 days`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Handling Dates Part 3`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `SQL provides several useful functions to manipulate and format dates. Here are some common date functions:
+
+DATE() - Converts a string to a date
+STRFTIME() - Formats dates according to specified parameters
+DATE('now') - Gets current date:
+For example convert string to date:.
+`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT DATE('2023-05-15 13:45:00')
+-- Returns: 2023-05-15
+
+SELECT DATE('now')
+-- Returns current date`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `For example extract year, month and day from date:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `-- Get year
+SELECT STRFTIME('%Y', '2023-05-15')
+-- Returns: 2023
+
+-- Get month
+SELECT STRFTIME('%m', '2023-05-15')
+-- Returns: 05
+
+-- Get day
+SELECT STRFTIME('%d', '2023-05-15')
+-- Returns: 15
+
+-- Show combination of year and day (any separator can be used)
+SELECT STRFTIME('%Y:%d', '2023-05-15')
+-- Returns: 2023:15
+
+-- Use a dash separator instead
+SELECT STRFTIME('%d-%m-%Y', '2023-05-15')
+-- Returns: 15-05-2023
+
+-- Get day of week
+SELECT STRFTIME('%w', '2023-05-15')
+-- Returns: 1 (Monday; Sunday is 0)`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `Common format specifiers:
+
+%Y: Year (4 digits)
+%m: Month (01-12)
+%d: Day of month (01-31)
+%w: Day of week (0-6, Sunday is 0)
+%H: Hour (00-23)
+%M: Minute (00-59)
+%S: Second (00-59)`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `You can use any separator character between specifiers (e.g. -, :, /). For example, STRFTIME('%d-%m-%Y', date) and STRFTIME('%d:%m:%Y', date) both combine day, month, and year, just with different separators.
+
+You can combine these functions in queries:
+`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `-- Find all records from current year
+SELECT * FROM table1
+WHERE STRFTIME('%Y', date_column) = STRFTIME('%Y', 'now')`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const sec1chapter5 = {
+  id: "sql-sec1-chapter-5",
+  title: "Arithmetic Operations",
+  order: 1,
+
+  contents: [
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Mathematical Operators`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `In SQL, you can perform calculations directly with column values in your queries. This is useful when you need to compute new values based on existing data. For example:`,
+          },
+        },
+
+        {
+          data: {
+            column: ["Operator", "Operation"],
+            rows: [
+              ["+", "Addition"][("-", "Subtraction")],
+              ["*", "Multiplication"],
+              ["/", "Division"],
+            ],
+          },
+        },
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT price + 10 as increased_price,
+       price - 10 as reduced_price,
+       price * 10 as multiple_price,
+       price / 2 as half_price
+FROM products;`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-qb-2",
+      sub_blocks: [
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `Important note about division: When dividing integers in SQL, the result depends on the data types involved:
+Integer ÷ Integer = Integer (truncated): 7 / 2 = 3 (not 3.5)
+Integer ÷ Float = Float: 7 / 2.0 = 3.5
+Float ÷ Integer = Float: 7.0 / 2 = 3.5
+To get decimal results when dividing integers, make sure at least one operand is a float (use values like 2.0 instead of 2).`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `Mathematical Columns`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `You can combine multiple columns and numbers in complex expressions. For example:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT (price * quantity) + shipping_cost as final_price
+FROM orders;`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `You can also use parentheses to control the order of operations:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT (base_salary + bonus) * (1 - tax_rate) as net_pay
+FROM payroll;`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `The Modulo Operation`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `The modulo operator % tells you what's left over after dividing one number by another.`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `dividend % divisor`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `dividend: The number being divided.
+divisor: The number that divides the dividend.`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `For example`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `10 % 3 -- result = 1`,
+          },
+        },
+
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `Here, 10 is divided by 3. 3 goes into 10 three times, with a remainder of 1. So, result will be 1.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `Usually modulo is used for checking if a number is even or odd:
+
+If a number is even, dividing it by 2 will leave a remainder of 0.
+If a number is odd, dividing it by 2 will leave a remainder of 1.
+For example find even-numbered rows:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT * FROM table WHERE id % 2 = 0;`,
+          },
+        },
+
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `Or for cycling through values:
+
+number % 12 (returns 0-11)
+number % 8 (return 0-7)
+For example group items into sets of 5:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT item_number % 5 as group_number FROM inventory;`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `The ROUND() Function`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `The ROUND() function is used to round a numeric value to a specified number of decimal places. To use the function follow this syntax:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROUND(number, decimal_places)`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `number: The number you want to round
+decimal_places: (Optional) The number of decimal places to round to
+If omitted, rounds to the nearest whole number
+If positive, rounds to that many decimal places
+If negative, rounds to the left of the decimal point`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `For example, basic rounding to whole numbers:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT ROUND(3.7);
+-- Returns 4.0
+
+SELECT ROUND(3.3);
+-- Returns 3.0
+
+SELECT ROUND(3.5);  
+-- Returns 4.0 (rounds up from .5)`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `Note: The ROUND() function in SQLite always returns a floating-point (REAL) value, which is why the results above include a decimal point (e.g., 4.0 instead of 4).
+Rounding to specific decimal places:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT ROUND(3.14159, 2);
+-- Returns 3.14
+
+SELECT ROUND(3.14159, 1);
+-- Returns 3.1
+
+SELECT ROUND(3.14159, 0);
+-- Returns 3.0
+
+SELECT ROUND(3.145, 2);
+-- Returns 3.15 (rounds up because the next digit is 5)`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `Note: When the digit after the last kept decimal place is 5 or greater, the last kept decimal rounds up.
+Practical example with a table:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT 
+    product_name,
+    ROUND(price, 2) as rounded_price
+FROM products;`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const sec1chapter4 = {
   id: "sql-sec1-chapter-4",
   title: "Some more keywords",
@@ -1084,659 +1675,6 @@ For example`,
             code: `SELECT *
 FROM table1
 WHERE col1 IS NOT FALSE AND col2 IS TRUE`,
-          },
-        },
-      ],
-    },
-  ],
-};
-
-const sec1chapter12 = {
-  id: "Window Functions part 2",
-  title: "Window Functions Part 2",
-  order: 1,
-
-  contents: [
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf1b1sb1",
-          type: "heading",
-          data: {
-            text: `RANK & DENSE_RANK Functions`,
-          },
-        },
-
-        {
-          id: "wf1b1sb2",
-          type: "text",
-          data: {
-            text: `ROW_NUMBER() is one type of ranking function, and there are two more: RANK() and DENSE_RANK().
-
-The RANK() function numbers rows like ROW_NUMBER(), but it gives identical numbers for the same rows and skips numbers. DENSE_RANK() is similar to RANK(), but it does not skip numbers.
-
-For example.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["id", "level"],
-            rows: [
-              ["1", "5"],
-              ["2", "6"],
-              ["3", "6"],
-              ["4", "7"],
-              ["5", "7"],
-              ["6", "5"],
-            ],
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b4",
-      sub_blocks: [
-        {
-          id: "wf1b1sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT id, 
-       ROW_NUMBER() OVER (ORDER BY level) as row_num,
-       RANK() OVER (ORDER BY level) as row_rank,
-       DENSE_RANK() OVER (ORDER BY level) as row_dense_rank
-FROM table1`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b4sb1",
-          type: "text",
-          data: {
-            text: `This will return : `,
-          },
-        },
-
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["id", "row_num", "row_rank", "row_dense_rank"],
-            rows: [
-              [1, 1, 1, 1],
-              [6, 2, 1, 1],
-              [2, 3, 3, 2],
-              [3, 4, 3, 2],
-              [4, 5, 5, 3],
-              [5, 6, 5, 3],
-            ],
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b5",
-      sub_blocks: [
-        {
-          id: "wf1b4sb1",
-          type: "text",
-          data: {
-            text: `Explanation:`,
-          },
-        },
-
-        {
-          type: "list",
-          data: {
-            lists: [`ROW_NUMBER(): Always unique: 1, 2, 3, 4, 5, 6`],
-          },
-        },
-
-        {
-          type: "list",
-          data: {
-            lists: [
-              `RANK(): level 5 (2 rows): both get rank 1`,
-              `level 6 (2 rows): both get rank 3 (skips 2)`,
-              `level 7 (2 rows): both get rank 5 (skips 4)`,
-            ],
-          },
-        },
-
-        {
-          type: "list",
-          data: {
-            lists: [
-              `DENSE_RANK(): level 5 (2 rows): both get rank 1`,
-              `level 6 (2 rows): both get rank 2 (no skip)`,
-              `level 7 (2 rows): both get rank 3 (no skip)`,
-            ],
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf1b1sb1",
-          type: "heading",
-          data: {
-            text: `NTILE Function`,
-          },
-        },
-
-        {
-          id: "wf1b1sb2",
-          type: "text",
-          data: {
-            text: `NTILE(n) numbers the rows by splitting them into n approximately equal pieces. It is often used for performance enhancements - sending large amounts of data at once might be not a good idea, so this function allows to send smaller pieces at a time.
-
-For example: we have table`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["id", "level"],
-            rows: [
-              [1, 4],
-              [2, 4],
-              [3, 5],
-              [4, 6],
-              [5, 7],
-              [6, 7],
-            ],
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT id, level,
-       NTILE(3) OVER (ORDER BY level) as pieces
-from table1`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "text",
-          data: {
-            text: `This will return :
-`,
-          },
-        },
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["id", "level", "pieces"],
-            rows: [
-              [1, 4, 1],
-              [2, 4, 1],
-              [3, 5, 2],
-              [4, 6, 2],
-              [5, 7, 3],
-              [6, 7, 3],
-            ],
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf1b12s21",
-          type: "text",
-          data: {
-            text: `We got 3 pieces: level 4 in piece 1, level 5 and level 6 in piece 2, and level 7 in piece 3.
-When the number of rows isn't evenly divisible by n, NTILE distributes the rows as evenly as possible, with larger groups appearing first. For example, if you have 9 rows and NTILE(4), the distribution would be:`,
-          },
-        },
-
-        {
-          id: "wf1b122s1",
-          type: "list",
-          data: {
-            lists: [
-              "Group 1: 3 rows",
-              "Group 2: 2 rows",
-              "Group 3: 2 rows",
-              "Group 4: 2 rows",
-            ],
-          },
-        },
-
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `This ensures that no group differs by more than one row from any other group, and any extra rows are distributed to the lower-numbered groups first.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf1b1sb1",
-          type: "heading",
-          data: {
-            text: `Aggregation Functions`,
-          },
-        },
-
-        {
-          id: "wf1b1sb2",
-          type: "text",
-          data: {
-            text: `Aggregation functions are used to calculate the AVG() or MAX() or any other aggregation function up until the current row.
-For example, we could calculate the maximum revenue we got until each ending period:`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["month", "revenue", "region"],
-            rows: [
-              [4, 40, "East"],
-              [5, 20, "East"],
-              [6, 60, "West"],
-              [7, 55, "West"],
-              [8, 61, "East"],
-            ],
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT month, revenue,
-       MAX(revenue) OVER (ORDER BY month ASC) as max_revenue
-from table1`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "text",
-          data: {
-            text: `This will return :
-`,
-          },
-        },
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["month", "revenue", "max_revenue"],
-            rows: [
-              [4, 40, 40],
-              [5, 20, 40],
-              [6, 60, 60],
-              [7, 55, 60],
-              [8, 61, 61],
-            ],
-          },
-        },
-
-        {
-          id: "wf1b12s21",
-          type: "text",
-          data: {
-            text: `For months 4 and 5 the maximum revenue is 40, for months 6 and 7 it is 60, and for month 8 it is 61. This is because when it finds a new bigger revenue, it drops the old one and uses the biggest so far.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `For AVG() function it will look like this:`,
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT month, revenue,
-       AVG(revenue) OVER (ORDER BY month ASC) as avg_revenue
-from table11`,
-          },
-        },
-
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["month", "revenue", "max_revenue"],
-            rows: [
-              [4, 40, 40],
-              [5, 20, 30],
-              [6, 60, 40],
-              [7, 55, 43.75],
-              [8, 61, 47.2],
-            ],
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `We can also group our calculations by specific categories using PARTITION BY. For example:`,
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT month, revenue, region,
-       MAX(revenue) OVER (PARTITION BY region ORDER BY month ASC) as max_revenue
-FROM table1`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `This will give you `,
-          },
-        },
-
-        {
-          id: "wf1b12s1",
-          type: "table",
-          data: {
-            column: ["month", "revenue", "region", "max_revenue"],
-            rows: [
-              [4, 40, "East", 40],
-              [5, 20, "East", 40],
-              [6, 60, "West", 60],
-              [7, 55, "West", 60],
-              [8, 61, "East", 61],
-            ],
-          },
-        },
-
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `Now the maximum is calculated separately for each region. The East region and West region maintain their own running maximums independently.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf1b1sb1",
-          type: "heading",
-          data: {
-            text: `ROWS & RANGE Criterion`,
-          },
-        },
-
-        {
-          id: "wf1b1sb2",
-          type: "text",
-          data: {
-            text: `As of now, we can't be flexible regarding choosing how many rows before or after to take into account. Now it is possible with ROWS & RANGE criteria. To use them we write:`,
-          },
-        },
-
-        {
-          id: "wf1b1sb2",
-          type: "text",
-          data: {
-            text: `OVER (ROWS BETWEEN --START-- AND --END--)
-
-OVER (RANGE BETWEEN --START-- AND --END--)`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "text",
-          data: {
-            text: `And we can specify the following options::
-`,
-          },
-        },
-
-        {
-          id: "wf1b12s1",
-          type: "list",
-          data: {
-            lists: [
-              "CURRENT ROW - the current row",
-              "n PRECEDING - rows before the current row",
-              "n FOLLOWING - rows after the current row",
-            ],
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "text",
-          data: {
-            text: `The difference between ROWS & RANGE is that ROWS criterion doesn't care about the values, just the positions, whereas RANGE defines the window in terms of value ranges rather than row positions.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b12s1",
-          type: "text",
-          data: {
-            text: `For RANGE we must specify ORDER BY --column_name-- because if not it would not know how to choose the window.
-
-For example:`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b12",
-      sub_blocks: [
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING`,
-          },
-        },
-
-        {
-          id: "wf1b12s21",
-          type: "text",
-          data: {
-            text: `Here it creates a window that includes the current row, the row before it, and the row after it.`,
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING ORDER BY levels`,
-          },
-        },
-
-        {
-          id: "wf1b12s21",
-          type: "text",
-          data: {
-            text: `Here it creates a window that includes for each level (sorted in ascending order) the current level, one level before it, and one level after it. If the current level is 5 then it will include levels 4, 5, and 6.`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `Note: The use of RANGE BETWEEN might result in more rows being included in your window, because it includes all rows that share the same values as those in the range, while ROWS BETWEEN will always include the same number of rows (as long as they are available in the data set). `,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "wf1b1",
-      sub_blocks: [
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `Also RANGE does not support date columns.
-
-Here's a simple example to illustrate ROWS vs RANGE:`,
-          },
-        },
-
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `Using ROWS : `,
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT employee_name, salary,
-      AVG(salary) OVER (
-            ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
-      ) as avg_salary_rows
-FROM table_s`,
-          },
-        },
-
-        {
-          id: "wf21b12s1",
-          type: "text",
-          data: {
-            text: `Using RANGE:`,
-          },
-        },
-
-        {
-          id: "wf1b6sb4",
-          type: "code",
-          data: {
-            language: "sql",
-            code: `SELECT employee_name, salary,
-    AVG(salary) OVER (
-        ORDER BY salary
-        RANGE BETWEEN 1000 PRECEDING AND 1000 FOLLOWING
-    ) as avg_salary_range
-FROM table_s`,
-          },
-        },
-      ],
-    },
-
-    {
-      id: "s1c2b40",
-      sub_blocks: [
-        {
-          type: "heading",
-          id: "s1c2b3sw33",
-          data: {
-            text: `Congratulations You Compleated this Chapter (Window Functions Part 2). Click on button to moove forword.`,
           },
         },
       ],
@@ -3750,11 +3688,666 @@ FROM sales`,
   ],
 };
 
+const sec1chapter12 = {
+  id: "Window Functions part 2",
+  title: "Window Functions Part 2",
+  order: 1,
+
+  contents: [
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `RANK & DENSE_RANK Functions`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `ROW_NUMBER() is one type of ranking function, and there are two more: RANK() and DENSE_RANK().
+
+The RANK() function numbers rows like ROW_NUMBER(), but it gives identical numbers for the same rows and skips numbers. DENSE_RANK() is similar to RANK(), but it does not skip numbers.
+
+For example.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "level"],
+            rows: [
+              ["1", "5"],
+              ["2", "6"],
+              ["3", "6"],
+              ["4", "7"],
+              ["5", "7"],
+              ["6", "5"],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b4",
+      sub_blocks: [
+        {
+          id: "wf1b1sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, 
+       ROW_NUMBER() OVER (ORDER BY level) as row_num,
+       RANK() OVER (ORDER BY level) as row_rank,
+       DENSE_RANK() OVER (ORDER BY level) as row_dense_rank
+FROM table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `This will return : `,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "row_num", "row_rank", "row_dense_rank"],
+            rows: [
+              [1, 1, 1, 1],
+              [6, 2, 1, 1],
+              [2, 3, 3, 2],
+              [3, 4, 3, 2],
+              [4, 5, 5, 3],
+              [5, 6, 5, 3],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b5",
+      sub_blocks: [
+        {
+          id: "wf1b4sb1",
+          type: "text",
+          data: {
+            text: `Explanation:`,
+          },
+        },
+
+        {
+          type: "list",
+          data: {
+            lists: [`ROW_NUMBER(): Always unique: 1, 2, 3, 4, 5, 6`],
+          },
+        },
+
+        {
+          type: "list",
+          data: {
+            lists: [
+              `RANK(): level 5 (2 rows): both get rank 1`,
+              `level 6 (2 rows): both get rank 3 (skips 2)`,
+              `level 7 (2 rows): both get rank 5 (skips 4)`,
+            ],
+          },
+        },
+
+        {
+          type: "list",
+          data: {
+            lists: [
+              `DENSE_RANK(): level 5 (2 rows): both get rank 1`,
+              `level 6 (2 rows): both get rank 2 (no skip)`,
+              `level 7 (2 rows): both get rank 3 (no skip)`,
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `NTILE Function`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `NTILE(n) numbers the rows by splitting them into n approximately equal pieces. It is often used for performance enhancements - sending large amounts of data at once might be not a good idea, so this function allows to send smaller pieces at a time.
+
+For example: we have table`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "level"],
+            rows: [
+              [1, 4],
+              [2, 4],
+              [3, 5],
+              [4, 6],
+              [5, 7],
+              [6, 7],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT id, level,
+       NTILE(3) OVER (ORDER BY level) as pieces
+from table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will return :
+`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["id", "level", "pieces"],
+            rows: [
+              [1, 4, 1],
+              [2, 4, 1],
+              [3, 5, 2],
+              [4, 6, 2],
+              [5, 7, 3],
+              [6, 7, 3],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b12s21",
+          type: "text",
+          data: {
+            text: `We got 3 pieces: level 4 in piece 1, level 5 and level 6 in piece 2, and level 7 in piece 3.
+When the number of rows isn't evenly divisible by n, NTILE distributes the rows as evenly as possible, with larger groups appearing first. For example, if you have 9 rows and NTILE(4), the distribution would be:`,
+          },
+        },
+
+        {
+          id: "wf1b122s1",
+          type: "list",
+          data: {
+            lists: [
+              "Group 1: 3 rows",
+              "Group 2: 2 rows",
+              "Group 3: 2 rows",
+              "Group 4: 2 rows",
+            ],
+          },
+        },
+
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `This ensures that no group differs by more than one row from any other group, and any extra rows are distributed to the lower-numbered groups first.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `Aggregation Functions`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `Aggregation functions are used to calculate the AVG() or MAX() or any other aggregation function up until the current row.
+For example, we could calculate the maximum revenue we got until each ending period:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["month", "revenue", "region"],
+            rows: [
+              [4, 40, "East"],
+              [5, 20, "East"],
+              [6, 60, "West"],
+              [7, 55, "West"],
+              [8, 61, "East"],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT month, revenue,
+       MAX(revenue) OVER (ORDER BY month ASC) as max_revenue
+from table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `This will return :
+`,
+          },
+        },
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["month", "revenue", "max_revenue"],
+            rows: [
+              [4, 40, 40],
+              [5, 20, 40],
+              [6, 60, 60],
+              [7, 55, 60],
+              [8, 61, 61],
+            ],
+          },
+        },
+
+        {
+          id: "wf1b12s21",
+          type: "text",
+          data: {
+            text: `For months 4 and 5 the maximum revenue is 40, for months 6 and 7 it is 60, and for month 8 it is 61. This is because when it finds a new bigger revenue, it drops the old one and uses the biggest so far.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `For AVG() function it will look like this:`,
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT month, revenue,
+       AVG(revenue) OVER (ORDER BY month ASC) as avg_revenue
+from table11`,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["month", "revenue", "max_revenue"],
+            rows: [
+              [4, 40, 40],
+              [5, 20, 30],
+              [6, 60, 40],
+              [7, 55, 43.75],
+              [8, 61, 47.2],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `We can also group our calculations by specific categories using PARTITION BY. For example:`,
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT month, revenue, region,
+       MAX(revenue) OVER (PARTITION BY region ORDER BY month ASC) as max_revenue
+FROM table1`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `This will give you `,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "table",
+          data: {
+            column: ["month", "revenue", "region", "max_revenue"],
+            rows: [
+              [4, 40, "East", 40],
+              [5, 20, "East", 40],
+              [6, 60, "West", 60],
+              [7, 55, "West", 60],
+              [8, 61, "East", 61],
+            ],
+          },
+        },
+
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `Now the maximum is calculated separately for each region. The East region and West region maintain their own running maximums independently.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf1b1sb1",
+          type: "heading",
+          data: {
+            text: `ROWS & RANGE Criterion`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `As of now, we can't be flexible regarding choosing how many rows before or after to take into account. Now it is possible with ROWS & RANGE criteria. To use them we write:`,
+          },
+        },
+
+        {
+          id: "wf1b1sb2",
+          type: "text",
+          data: {
+            text: `OVER (ROWS BETWEEN --START-- AND --END--)
+
+OVER (RANGE BETWEEN --START-- AND --END--)`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `And we can specify the following options::
+`,
+          },
+        },
+
+        {
+          id: "wf1b12s1",
+          type: "list",
+          data: {
+            lists: [
+              "CURRENT ROW - the current row",
+              "n PRECEDING - rows before the current row",
+              "n FOLLOWING - rows after the current row",
+            ],
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "text",
+          data: {
+            text: `The difference between ROWS & RANGE is that ROWS criterion doesn't care about the values, just the positions, whereas RANGE defines the window in terms of value ranges rather than row positions.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b12s1",
+          type: "text",
+          data: {
+            text: `For RANGE we must specify ORDER BY --column_name-- because if not it would not know how to choose the window.
+
+For example:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b12",
+      sub_blocks: [
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING`,
+          },
+        },
+
+        {
+          id: "wf1b12s21",
+          type: "text",
+          data: {
+            text: `Here it creates a window that includes the current row, the row before it, and the row after it.`,
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `RANGE BETWEEN 1 PRECEDING AND 1 FOLLOWING ORDER BY levels`,
+          },
+        },
+
+        {
+          id: "wf1b12s21",
+          type: "text",
+          data: {
+            text: `Here it creates a window that includes for each level (sorted in ascending order) the current level, one level before it, and one level after it. If the current level is 5 then it will include levels 4, 5, and 6.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `Note: The use of RANGE BETWEEN might result in more rows being included in your window, because it includes all rows that share the same values as those in the range, while ROWS BETWEEN will always include the same number of rows (as long as they are available in the data set). `,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "wf1b1",
+      sub_blocks: [
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `Also RANGE does not support date columns.
+
+Here's a simple example to illustrate ROWS vs RANGE:`,
+          },
+        },
+
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `Using ROWS : `,
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT employee_name, salary,
+      AVG(salary) OVER (
+            ROWS BETWEEN 1 PRECEDING AND 1 FOLLOWING
+      ) as avg_salary_rows
+FROM table_s`,
+          },
+        },
+
+        {
+          id: "wf21b12s1",
+          type: "text",
+          data: {
+            text: `Using RANGE:`,
+          },
+        },
+
+        {
+          id: "wf1b6sb4",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT employee_name, salary,
+    AVG(salary) OVER (
+        ORDER BY salary
+        RANGE BETWEEN 1000 PRECEDING AND 1000 FOLLOWING
+    ) as avg_salary_range
+FROM table_s`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "s1c2b40",
+      sub_blocks: [
+        {
+          type: "heading",
+          id: "s1c2b3sw33",
+          data: {
+            text: `Congratulations You Compleated this Chapter (Window Functions Part 2). Click on button to moove forword.`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const sec1chapters = [
   sec1chapter1,
   sec1chapter2,
   sec1chapter3,
   sec1chapter4,
+  sec1chapter5,
+  sec1chapter6,
   sec1chapter10,
   sec1chapter11,
   sec1chapter12,
