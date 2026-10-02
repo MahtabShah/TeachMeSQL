@@ -1,3 +1,508 @@
+const sec1chapter4 = {
+  id: "sql-sec1-chapter-4",
+  title: "Some more keywords",
+  order: 1,
+
+  contents: [
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `The IN keyword`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `When we need to find rows where a column matches any one of several possible values, we can write it using multiple OR conditions. For example the following query is very long:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-qb-2",
+      sub_blocks: [
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM table1
+WHERE col1 = 'a' OR col1 = 'b' OR col1 = 'c' OR col1 = 'd' OR ...`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `We can simplify it by using the IN keyword like this:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM table1
+WHERE col1 IN ('a', 'b', 'c', 'd', 'e', 'f')`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `This shorter version does exactly the same thing: it returns rows where col1 equals any of the values listed in the parentheses.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `The BETWEEN keyword`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `As of now, we learned to use bigger > and smaller < to demand a range for a field. But there is another way.
+
+Instead of writing:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `WHERE col1 >= 5 AND col1 <= 10`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `We can write`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `WHERE col1 BETWEEN 5 AND 10`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `The BETWEEN operator is inclusive, meaning it includes the boundary values (in this case, 5 and 10) in the results. This makes your SQL queries cleaner and more readable, especially when dealing with date ranges or numerical intervals.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `The LIKE keyword`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `The LIKE keyword is used to check the similarities of strings. For example, if we want to fetch all of the records that the name starts with the letter a then we will use the LIKE keyword.`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `Two main wildcards are used:
+% - means any number of characters
+_ - means exactly one character`,
+          },
+        },
+
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `For example:
+            
+%a - means any string that ends with a
+a% - means any string that starts with a
+%a% - means any string that contains a
+_a% - means that the letter a is the second character in the string
+%a__ - means that the string contains a in the 3rd from last place`,
+          },
+        },
+
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `To use it we will write:`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT col1, col2, ...
+FROM table1
+WHERE col1 LIKE '%a__'`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `The AS keyword`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `Clear and descriptive column names are essential for presenting data in a meaningful way. If you show a table with bad column names, it will be hard for your audience to understand what you are talking about.
+
+To change column names you may use the AS keyword`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT col1 AS firstColumn, col2 AS secondColumn, ...
+FROM table1`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
+const sec1chapter3 = {
+  id: "sql-sec1-chapter-3",
+  title: "Specific Return Format",
+  order: 1,
+
+  contents: [
+    {
+      id: "i-b-1",
+      sub_blocks: [
+        {
+          id: "ic-content-1",
+          type: "heading",
+          data: {
+            text: `Null values`,
+          },
+        },
+
+        {
+          id: "isbc-1",
+          type: "text",
+          data: {
+            text: `In the real world, we might have fields with no values. A field with no value is called null.
+
+We can manipulate our query using IS NULL or IS NOT NULL to fetch relevant data
+
+For example the following query will return all of the records where col1 has no value:`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-qb-2",
+      sub_blocks: [
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM table1
+WHERE col1 IS NULL`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `Sort Results Part 1`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `When querying a database, organizing your results in a meaningful order can make data analysis much more efficient. To sort the result we use the ORDER BY keyword and after that, we should specify by which field we are ordering by. By default, it sorts by ascending order.
+
+For example consider the following competition table:`,
+          },
+        },
+
+        {
+          id: "isb-2",
+          type: "table",
+          data: {
+            column: ["id", "age", "avg_speed"],
+            rows: [
+              [1, 47, 3.65],
+              [2, 62, 3.07],
+              [3, 57, 6.82],
+              [4, 56, 4.34],
+              [5, 25, 4.93],
+              [6, 40, 3.94],
+              [7, 23, 6.58],
+              [8, 40, 3.43],
+            ],
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM competition
+WHERE age > 50
+ORDER BY avg_speed`,
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `The result will be`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "isb-2",
+          type: "table",
+          data: {
+            column: ["id", "age", "avg_speed"],
+            rows: [
+              [2, 62, 3.07],
+              [4, 56, 4.34],
+              [3, 57, 6.82],
+            ],
+          },
+        },
+
+        {
+          id: "i2sb-4",
+          type: "text",
+          data: {
+            text: `To specify how to sort that data we can add DESC or ASC keywords after the name of the column.`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `ORDER BY avg_speed ASC`,
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `Sort Results Part 2`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `When using ORDER BY in SQL, you can sort data by multiple columns.
+
+For example consider the following competition table:`,
+          },
+        },
+
+        {
+          id: "isb-2",
+          type: "table",
+          data: {
+            column: ["runner_id", "age", "avg_speed"],
+            rows: [
+              [1, 47, 3.65],
+              [2, 62, 3.07],
+              [3, 57, 6.82],
+              [4, 56, 4.34],
+              [5, 25, 4.93],
+              [6, 40, 3.94],
+              [7, 23, 6.58],
+              [8, 40, 3.43],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM competition
+WHERE age < 50
+ORDER BY age DESC, avg_speed DESC`,
+          },
+        },
+
+        {
+          id: "i1sb-2",
+          type: "text",
+          data: {
+            text: `This query will:
+First sort all records by age in descending order (highest to lowest)
+If two or more records have the same age, it will then sort those specific records by avg_speed in descending order (highest to lowest)
+
+The result will be`,
+          },
+        },
+
+        {
+          id: "isb-2",
+          type: "table",
+          data: {
+            column: ["id", "age", "avg_speed"],
+            rows: [
+              [1, 47, 3.65],
+              [6, 40, 3.94],
+              [8, 40, 3.43],
+              [5, 25, 4.93],
+              [7, 23, 6.58],
+            ],
+          },
+        },
+      ],
+    },
+
+    {
+      id: "i-b-3",
+      sub_blocks: [
+        {
+          id: "i1sb-2",
+          type: "heading",
+          data: {
+            text: `Limit number of records`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `Let's assume we fetched a lot of data. Sometimes we only need the top 5 or the top 10 records.
+
+To limit the number of records we can use the LIMIT keyword
+
+For example`,
+          },
+        },
+
+        {
+          id: "isb-5",
+          type: "code",
+          data: {
+            language: "sql",
+            code: `SELECT *
+FROM table1
+LIMIT 10`,
+          },
+        },
+
+        {
+          id: "i2sb-3",
+          type: "text",
+          data: {
+            text: `This will return the top 10 records.`,
+          },
+        },
+      ],
+    },
+  ],
+};
+
 const sec1chapter2 = {
   id: "sql-sec1-chapter-2",
   title: "Conditions Basics",
@@ -3248,6 +3753,8 @@ FROM sales`,
 const sec1chapters = [
   sec1chapter1,
   sec1chapter2,
+  sec1chapter3,
+  sec1chapter4,
   sec1chapter10,
   sec1chapter11,
   sec1chapter12,
